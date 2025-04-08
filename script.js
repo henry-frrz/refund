@@ -3,6 +3,8 @@ const amount = document.querySelector('#amount')
 const expense = document.querySelector('#expense')
 const category = document.querySelector('#category')
 
+const expenseList = document.querySelector('ul')
+
 let amountValue = amount.value
 
 amount.oninput = () => {
@@ -26,6 +28,28 @@ form.onsubmit = event => {
     amount: amountValue,
     createdAt: new Date(),
   }
+
+  addNewExpense(newExpense)
+}
+
+const addNewExpense = expense => {
+  const expenseItem = document.createElement('li')
+  expenseItem.classList.add('expense')
+
+  expenseItem.innerHTML = `
+  <img src="./img/${expense.category.id}.svg" alt="Ícone de tipo da despesa" />
+  <div class="expense-info">
+    <strong>${expense.name}</strong>
+    <span>${expense.category.name}</span>
+  </div>
+  <span class="expense-amount"><small>R$</small>${formatNumberBRL(
+    expense.amount,
+    'decimal'
+  )}</span>
+  <img src="./img/remove.svg" alt="remover" class="remove-icon" />
+`
+
+  expenseList.append(expenseItem)
 }
 
 const formatNumberBRL = (value, style) => {
