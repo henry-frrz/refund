@@ -3,6 +3,7 @@ const amount = document.querySelector('#amount')
 const expense = document.querySelector('#expense')
 const category = document.querySelector('#category')
 
+const expenseCount = document.querySelector('aside header p span')
 const expenseList = document.querySelector('ul')
 
 let amountValue = amount.value
@@ -30,6 +31,7 @@ form.onsubmit = event => {
   }
 
   addNewExpense(newExpense)
+  updateExpenseCount()
 }
 
 const addNewExpense = expense => {
@@ -50,6 +52,14 @@ const addNewExpense = expense => {
 `
 
   expenseList.append(expenseItem)
+}
+
+const updateExpenseCount = () => {
+  const expenseListLength = expenseList.children.length
+
+  expenseCount.textContent = `${expenseListLength} ${
+    expenseListLength > 1 ? 'despesas' : 'despesa'
+  }`
 }
 
 const formatNumberBRL = (value, style) => {
