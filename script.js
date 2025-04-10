@@ -4,6 +4,7 @@ const expense = document.querySelector('#expense')
 const category = document.querySelector('#category')
 
 const expenseCount = document.querySelector('aside header p span')
+const totalAmountExpensesElement = document.querySelector('aside header h2')
 const expenseList = document.querySelector('ul')
 
 let amountValue = amount.value
@@ -32,6 +33,8 @@ form.onsubmit = event => {
 
   addNewExpense(newExpense)
   updateExpenseCount()
+  updateTotalAmountExpenses()
+  form.reset()
 }
 
 const addNewExpense = expense => {
@@ -59,6 +62,23 @@ const updateExpenseCount = () => {
 
   expenseCount.textContent = `${expenseListLength} ${
     expenseListLength > 1 ? 'despesas' : 'despesa'
+  }`
+}
+
+const updateTotalAmountExpenses = () => {
+  let totalAmountExpenses = 0
+  const expensesAmount = document.querySelectorAll('.expense-amount')
+
+  expensesAmount.forEach(expenseAmount => {
+    totalAmountExpenses += Number(
+      expenseAmount.textContent.replace('R$', '').replace(',', '.')
+    )
+  })
+
+  totalAmountExpensesElement.innerHTML = `<small>R$</small>${
+    totalAmountExpenses === 0
+      ? '0,00'
+      : formatNumberBRL(totalAmountExpenses, 'decimal')
   }`
 }
 
