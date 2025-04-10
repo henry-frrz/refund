@@ -37,6 +37,16 @@ form.onsubmit = event => {
   form.reset()
 }
 
+expenseList.onclick = event => {
+  if (event.target.classList.contains('remove-icon')) {
+    const expenseItem = event.target.closest('.expense')
+
+    expenseItem.remove()
+    updateExpenseCount()
+    updateTotalAmountExpenses()
+  }
+}
+
 const addNewExpense = expense => {
   const expenseItem = document.createElement('li')
   expenseItem.classList.add('expense')
